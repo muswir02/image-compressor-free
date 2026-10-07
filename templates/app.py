@@ -12,21 +12,21 @@ def index():
 def compress():
     if 'file' not in request.files:
         return "No file uploaded", 400
-
+    
     file = request.files['file']
     if file.filename == '':
         return "No file selected", 400
 
     img = Image.open(file.stream)
-
+    
     if img.mode in ("RGBA", "P"):
         img = img.convert("RGB")
-
+        
     output = io.BytesIO()
     img.save(output, format='JPEG', quality=60, optimize=True)
     output.seek(0)
-
+    
     return send_file(output, mimetype='image/jpeg', as_attachment=True, download_name='compressed.jpg')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Vercel Serverless Function Handler
+app = app
