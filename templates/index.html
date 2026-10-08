@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Image Compressor - Compress JPG, PNG & WebP Online</title>
-    <meta name="description" content="Compress your images online for free without losing quality. Fast, secure, and privacy-focused image optimizer.">
-    
-    <!-- Google Fonts & Tailwind CSS for Modern UI -->
+    <title>Free Instant Image Compressor - Fast & Secure</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <style> body { font-family: 'Inter', sans-serif; } </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Header / Navbar -->
+    <!-- Header -->
     <header class="bg-white border-b border-slate-200 py-4 shadow-sm">
         <div class="max-w-5xl mx-auto px-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
@@ -27,87 +21,104 @@
         </div>
     </header>
 
-    <!-- Hero & Compressor Tool Section -->
+    <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-12 w-full">
         <div class="text-center mb-8">
             <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                Compress Images Instantly <br class="hidden sm:inline"><span class="text-blue-600">Without Losing Quality</span>
+                Compress Images Instantly <br class="hidden sm:inline"><span class="text-blue-600">Without Server Lag</span>
             </h1>
             <p class="text-slate-600 text-base md:text-lg max-w-2xl mx-auto">
-                Optimize JPG, PNG, and WebP images in seconds. Reduce file size up to 80% for faster website loading and easy sharing.
+                Upload any JPG, PNG, or WebP image. Compression happens right inside your browser in less than a second!
             </p>
         </div>
 
         <!-- Upload Card -->
         <div class="bg-white border-2 border-dashed border-blue-200 rounded-2xl p-8 md:p-12 text-center shadow-lg hover:border-blue-500 transition-all">
             
-            <form action="/compress" method="post" enctype="multipart/form-data" id="uploadForm" class="space-y-6">
-                
-                <div class="flex flex-col items-center justify-center">
-                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 text-2xl">
-                        📁
-                    </div>
-                    <label for="fileInput" class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5">
-                        Choose Image File
-                    </label>
-                    <input type="file" id="fileInput" name="file" accept="image/*" class="hidden" required onchange="showFileName()">
-                    <p id="fileName" class="mt-3 text-sm text-slate-500 font-medium">PNG, JPG, JPEG, WEBP up to 10MB</p>
+            <div class="flex flex-col items-center justify-center">
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 text-2xl">
+                    📁
                 </div>
-
-                <div id="actionArea" class="hidden">
-                    <button type="submit" onclick="startLoading()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all">
-                        ⚡ Compress Now
-                    </button>
-                </div>
-
-                <div id="loader" class="hidden text-center py-4">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
-                    <p class="text-sm font-semibold text-slate-600 mt-2">Compressing your image, please wait...</p>
-                </div>
-            </form>
-        </div>
-
-        <!-- Features Grid -->
-        <div class="grid md:grid-cols-3 gap-6 mt-16">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-2xl mb-2">⚡</div>
-                <h3 class="font-bold text-slate-900 mb-1">Lightning Fast</h3>
-                <p class="text-sm text-slate-600">Advanced compression engine reduces image sizes in just seconds.</p>
+                <label for="fileInput" class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-all">
+                    Choose Image File
+                </label>
+                <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="processImage()">
+                <p id="fileName" class="mt-3 text-sm text-slate-500 font-medium">Select JPG, PNG, WEBP</p>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-2xl mb-2">🔒</div>
-                <h3 class="font-bold text-slate-900 mb-1">100% Secure</h3>
-                <p class="text-sm text-slate-600">Your images are processed securely and never stored permanently on servers.</p>
+
+            <!-- Result Box -->
+            <div id="resultArea" class="hidden mt-8 pt-6 border-t border-slate-100">
+                <p class="text-emerald-600 font-bold text-lg mb-2">🎉 Compression Complete!</p>
+                <p id="sizeStats" class="text-sm text-slate-600 mb-4"></p>
+                <a id="downloadBtn" download="compressed.jpg" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all">
+                    ⬇️ Download Compressed Image
+                </a>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-2xl mb-2">✨</div>
-                <h3 class="font-bold text-slate-900 mb-1">High Quality</h3>
-                <p class="text-sm text-slate-600">Smart lossy algorithms reduce size while keeping visual clarity high.</p>
-            </div>
+
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500">
-        <p>© 2026 Free Image Compressor. Built for speed and performance.</p>
+        <p>© 2026 Free Image Compressor. Fast & Secure Browser Engine.</p>
     </footer>
 
+    <!-- Instant Browser-Side Compression Script -->
     <script>
-        function showFileName() {
+        function processImage() {
             const input = document.getElementById('fileInput');
-            const fileNameContainer = document.getElementById('fileName');
-            const actionArea = document.getElementById('actionArea');
-            
-            if (input.files.length > 0) {
-                fileNameContainer.innerText = "Selected: " + input.files[0].name;
-                fileNameContainer.classList.add("text-blue-600", "font-semibold");
-                actionArea.classList.remove("hidden");
-            }
-        }
+            if (input.files.length === 0) return;
 
-        function startLoading() {
-            document.getElementById('actionArea').classList.add('hidden');
-            document.getElementById('loader').classList.remove('hidden');
+            const file = input.files[0];
+            const originalSizeKB = (file.size / 1024).toFixed(1);
+            
+            document.getElementById('fileName').innerText = "Processing: " + file.name;
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Resize if larger than 1920px for high speed
+                    const maxDim = 1920;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Compress to JPG quality 0.65 (65%)
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.65);
+                    
+                    // Calculate Compressed Size
+                    const head = 'data:image/jpeg;base64,';
+                    const compressedSizeKB = ((compressedDataUrl.length - head.length) * 3 / 4 / 1024).toFixed(1);
+
+                    // Show Results
+                    document.getElementById('sizeStats').innerText = `Original: ${originalSizeKB} KB  ➔  Compressed: ${compressedSizeKB} KB`;
+                    
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    downloadBtn.href = compressedDataUrl;
+                    
+                    document.getElementById('resultArea').classList.remove('hidden');
+                    document.getElementById('fileName').innerText = "Selected: " + file.name;
+                }
+            }
         }
     </script>
 </body>
