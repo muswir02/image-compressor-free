@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sufi Spices — Har Ghar Ki Shaan, Sufi Pakwan</title>
-    <meta name="description" content="100% Khalis Masale - Pissi Lal Mirch, Cutter Mirch, Haldi Powder aur Garam Masala. 24/7 Delivery All Over Karachi.">
+    <meta name="description" content="100% Khalis Masale - Pissi Lal Mirch, Cutter Mirch, Haldi Powder aur Garam Masala. 24/7 Express Delivery All Over Karachi.">
     
+    <!-- Tailwind CSS & Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        spice: {
-                            50: '#fffbe1',
-                            500: '#e11d48',
-                            600: '#be123c',
-                            700: '#9f1239',
+                        brand: {
+                            red: '#e11d48',
+                            darkred: '#be123c',
                             gold: '#f59e0b',
-                            amber: '#d97706'
+                            amber: '#d97706',
+                            emerald: '#059669',
+                            dark: '#0f172a'
                         }
                     },
                     fontFamily: { 
@@ -33,18 +34,18 @@
         }
     </script>
     <style>
-        .hero-gradient { background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.2), transparent 50%), linear-gradient(180deg, #0f172a 0%, #020617 100%); }
-        .glass-card { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .hero-bg { background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.15), transparent 60%), linear-gradient(180deg, #020617 0%, #0f172a 100%); }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .badge-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-rose-500 selection:text-white">
 
     <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-rose-700 via-amber-600 to-rose-700 text-white text-xs py-2 px-4 text-center font-medium shadow-md flex items-center justify-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-white badge-pulse"></span>
-        <span>🚚 <b>24/7 Delivery All Over Karachi</b> — Direct Doorstep Express Service!</span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400 badge-pulse"></span>
+        <span>🚚 <b>24/7 Delivery All Over Karachi</b> — Fresh Chakki-Pisa Order Direct Doorstep!</span>
     </div>
 
     <!-- Header Navigation -->
@@ -56,7 +57,7 @@
                 </div>
                 <div>
                     <span class="text-2xl font-black tracking-tight text-white block leading-none">SUFI <span class="text-rose-500">SPICES</span></span>
-                    <span class="text-[10px] text-amber-400 font-semibold uppercase tracking-widest">100% Pure & Organic</span>
+                    <span class="text-[10px] text-amber-400 font-bold uppercase tracking-widest">100% Pure & Organic</span>
                 </div>
             </div>
 
@@ -67,23 +68,312 @@
     </header>
 
     <!-- Hero Banner -->
-    <section class="hero-gradient py-12 sm:py-20 border-b border-slate-800/80 relative overflow-hidden">
+    <section class="hero-bg py-12 sm:py-20 border-b border-slate-800/80 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6 text-center space-y-6 relative z-10">
             
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold uppercase tracking-wider">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500"></i> All Karachi Express Service (24/7)
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Pure Quality Guaranteed
             </div>
             
-            <!-- Urdu Slogan Heading -->
-            <div class="space-y-3">
-                <h2 class="font-urdu text-3xl sm:text-5xl text-amber-400 leading-relaxed font-bold">
-                    "اعتماد آپ کا، معیار ہمارا"
-                </h2>
-                <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-                    Har Niwale Mein Apna Zaiqa Aur Aitmad<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-400 to-amber-500">Har Ghar Ki Shaan — Sufi Pakwan</span>
+            <div class="space-y-4">
+                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+                    Har Niwale Mein Apna Zaiqa Aur Aitmad
                 </h1>
+                <p class="font-urdu text-2xl sm:text-3xl text-amber-400 font-bold leading-relaxed">
+                    "اعتماد آپ کا، معیار ہمارا"
+                </p>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                    Bina kisi milawat ya artificial color ke — 100% Khalis Chakki Peesi Huwi Lal Mirch, Cutter Mirch, Haldi aur Garam Masale. Direct aap ke ghar tak 24/7 Karachi Express Delivery!
+                </p>
             </div>
+
+            <!-- Highlights -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 max-w-4xl mx-auto text-left">
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">100% Pure</h4>
+                        <p class="text-[10px] text-slate-400">Zero Chemicals</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="truck" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">24/7 Delivery</h4>
+                        <p class="text-[10px] text-slate-400">All Karachi Fast Service</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Aromatics Blend</h4>
+                        <p class="text-[10px] text-slate-400">Asli Khushboo & Rang</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="banknote" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Cash On Delivery</h4>
+                        <p class="text-[10px] text-slate-400">Pehle Check Phir Pay</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Main Products Section -->
+    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 space-y-12">
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-extrabold text-white">Our Premium Spices Menu</h2>
+            <p class="text-slate-400 text-sm">Apni requirement ke mutabiq weight select karein aur direct WhatsApp par order karein.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Product 1 -->
+            <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-rose-500/50 transition shadow-xl">
+                <div class="space-y-3">
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700/60 bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80" alt="Pissi Red Chili" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">Best Seller</span>
+                        <span class="absolute bottom-3 right-3 bg-slate-900/90 text-amber-400 text-[11px] font-extrabold px-2 py-0.5 rounded border border-amber-400/30">Rs. 1,200 / kg</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Pissi Lal Mirch</h3>
+                        <p class="text-xs text-slate-400 mt-1">100% Khalis, bina chemical aur rang ke. Teekha zaiqa aur kudrati rung.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400 font-semibold">Select Weight:</span>
+                        <select id="weight-mirch" onchange="calcPrice('mirch', 300)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-rose-500 font-bold">
+                            <option value="250g">250 grams</option>
+                            <option value="500g">500 grams</option>
+                            <option value="1kg" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-400 text-xs font-medium">Total Price:</span>
+                        <span id="price-mirch" class="text-xl font-black text-amber-400">Rs. 1,200</span>
+                    </div>
+                    <button onclick="orderWhatsApp('Pissi Lal Mirch', 'mirch')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Direct WhatsApp Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-amber-500/50 transition shadow-xl">
+                <div class="space-y-3">
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700/60 bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1588879460418-4903513a9d90?auto=format&fit=crop&w=600&q=80" alt="Cutter Chili" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-amber-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">Crushed Flakes</span>
+                        <span class="absolute bottom-3 right-3 bg-slate-900/90 text-amber-400 text-[11px] font-extrabold px-2 py-0.5 rounded border border-amber-400/30">Rs. 1,280 / kg</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Cutter Mirch (Chili Flakes)</h3>
+                        <p class="text-xs text-slate-400 mt-1">Karahi, Nihari, Daal aur Pizza topping ke liye sabse best crushed flakes.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400 font-semibold">Select Weight:</span>
+                        <select id="weight-cutter" onchange="calcPrice('cutter', 320)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-rose-500 font-bold">
+                            <option value="250g">250 grams</option>
+                            <option value="500g">500 grams</option>
+                            <option value="1kg" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-400 text-xs font-medium">Total Price:</span>
+                        <span id="price-cutter" class="text-xl font-black text-amber-400">Rs. 1,280</span>
+                    </div>
+                    <button onclick="orderWhatsApp('Cutter Mirch', 'cutter')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Direct WhatsApp Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-yellow-500/50 transition shadow-xl">
+                <div class="space-y-3">
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700/60 bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80" alt="Pure Haldi Powder" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-yellow-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">100% Organic</span>
+                        <span class="absolute bottom-3 right-3 bg-slate-900/90 text-amber-400 text-[11px] font-extrabold px-2 py-0.5 rounded border border-amber-400/30">Rs. 1,000 / kg</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Pure Haldi Powder</h3>
+                        <p class="text-xs text-slate-400 mt-1">Asli zard rang aur khushboo. Sehat aur khanay ki shaan dono ke liye behtareen.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400 font-semibold">Select Weight:</span>
+                        <select id="weight-haldi" onchange="calcPrice('haldi', 250)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-rose-500 font-bold">
+                            <option value="250g">250 grams</option>
+                            <option value="500g">500 grams</option>
+                            <option value="1kg" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-400 text-xs font-medium">Total Price:</span>
+                        <span id="price-haldi" class="text-xl font-black text-amber-400">Rs. 1,000</span>
+                    </div>
+                    <button onclick="orderWhatsApp('Pure Haldi Powder', 'haldi')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Direct WhatsApp Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-emerald-500/50 transition shadow-xl">
+                <div class="space-y-3">
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700/60 bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=600&q=80" alt="Garam Masala" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">Special Mix</span>
+                        <span class="absolute bottom-3 right-3 bg-slate-900/90 text-amber-400 text-[11px] font-extrabold px-2 py-0.5 rounded border border-amber-400/30">Rs. 1,800 / kg</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Pissa Garam Masala</h3>
+                        <p class="text-xs text-slate-400 mt-1">12 sabut masalon ka special aromatic blend jo har salan ko lazeez banaye.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400 font-semibold">Select Weight:</span>
+                        <select id="weight-garam" onchange="calcPrice('garam', 450)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-rose-500 font-bold">
+                            <option value="250g">250 grams</option>
+                            <option value="500g">500 grams</option>
+                            <option value="1kg" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-400 text-xs font-medium">Total Price:</span>
+                        <span id="price-garam" class="text-xl font-black text-amber-400">Rs. 1,800</span>
+                    </div>
+                    <button onclick="orderWhatsApp('Pissa Garam Masala', 'garam')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Direct WhatsApp Order
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Orders Summary / Quick Price Calculator Block -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6 max-w-4xl mx-auto">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">Orders Hisab-Kitab (Quick Price Rate Chart)</h3>
+                    <p class="text-xs text-slate-400">Sab masalon ke rates per kg aur weight breakdown yahan check karein:</p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="text-slate-400 bg-slate-900/80 uppercase font-bold text-[10px]">
+                        <tr>
+                            <th class="p-3">Product Name</th>
+                            <th class="p-3 text-center">250g Price</th>
+                            <th class="p-3 text-center">500g Price</th>
+                            <th class="p-3 text-center">1 kg Price</th>
+                            <th class="p-3 text-center">Quality Standard</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr>
+                            <td class="p-3 font-bold text-white flex items-center gap-2">🌶️ Pissi Lal Mirch</td>
+                            <td class="p-3 text-center">Rs. 300</td>
+                            <td class="p-3 text-center">Rs. 600</td>
+                            <td class="p-3 text-center text-amber-400 font-bold">Rs. 1,200</td>
+                            <td class="p-3 text-center text-emerald-400">100% Organic Chakki Pisa</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-white flex items-center gap-2">🌶️ Cutter Mirch (Flakes)</td>
+                            <td class="p-3 text-center">Rs. 320</td>
+                            <td class="p-3 text-center">Rs. 640</td>
+                            <td class="p-3 text-center text-amber-400 font-bold">Rs. 1,280</td>
+                            <td class="p-3 text-center text-emerald-400">Premium Crushed Grade</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-white flex items-center gap-2">💛 Pure Haldi Powder</td>
+                            <td class="p-3 text-center">Rs. 250</td>
+                            <td class="p-3 text-center">Rs. 500</td>
+                            <td class="p-3 text-center text-amber-400 font-bold">Rs. 1,000</td>
+                            <td class="p-3 text-center text-emerald-400">Zero Added Color</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-white flex items-center gap-2">🤎 Pissa Garam Masala</td>
+                            <td class="p-3 text-center">Rs. 450</td>
+                            <td class="p-3 text-center">Rs. 900</td>
+                            <td class="p-3 text-center text-amber-400 font-bold">Rs. 1,800</td>
+                            <td class="p-3 text-center text-emerald-400">12 Sabut Masala Blend</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-rose-950/30 border border-rose-500/20 p-4 rounded-2xl flex items-center justify-between text-xs">
+                <span class="text-slate-300 font-medium">📍 Delivery Policy: <b>Cash on Delivery</b> everywhere in Karachi. Fast dispatch within 2 hours!</span>
+                <span class="font-urdu text-amber-400 text-sm font-bold">"ہر گھر کی شان — صوفی پکوان"</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/80 py-12 text-center text-xs text-slate-400 space-y-4">
+        <div class="flex items-center justify-center gap-2 text-white font-bold text-2xl">
+            <i data-lucide="flame" class="w-7 h-7 text-rose-500 fill-current"></i> SUFI SPICES
+        </div>
+        <p class="font-urdu text-amber-400 text-lg font-bold">"اعتماد آپ کا، معیار ہمارا"</p>
+        <div class="text-slate-400 space-y-1">
+            <p>📍 Fast Express Delivery All Over Karachi (24/7 Service Available)</p>
+            <p>📞 Phone / WhatsApp: <a href="https://wa.me/923703750165" class="text-emerald-400 font-bold underline">03703750165</a></p>
+        </div>
+        <div class="pt-4 border-t border-slate-800/60 max-w-xl mx-auto text-slate-500 text-[11px]">
+            © 2026 Sufi Spices Pakistan. All Rights Reserved. Pure Organic Spices Delivered Fresh.
+        </div>
+    </footer>
+
+    <!-- JavaScript Functions -->
+    <script>
+        lucide.createIcons();
+
+        const WHATSAPP_NUMBER = "923703750165";
+
+        function calcPrice(id, basePrice250g) {
+            const weightSelect = document.getElementById(`weight-${id}`);
+            const priceSpan = document.getElementById(`price-${id}`);
             
-            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Bina kisi chemical
+            const weight = weightSelect.value;
+            let price = basePrice250g;
+
+            if (weight === '500g') price = basePrice250g * 2;
+            if (weight === '1kg') price = basePrice250g * 4;
+
+            priceSpan.innerText = `Rs. ${price.toLocaleString()}`;
+        }
+
+        function orderWhatsApp(productName, id) {
+            const weight = document.getElementById(`weight-${id}`).value;
+            const price = document.getElementById(`price-${id}`).innerText;
+
+            const message = `Assalam-o-Alaikum Sufi Spices!%0A%0AMain Niche Diya Gaya Order Place Karna Chahta Hoon:%0A----------------------------%0A*Product:* ${productName}%0A*Weight:* ${weight}%0A*Price:* ${price}%0A*Location:* Karachi%0A----------------------------%0ABraye Meharbani Order Confirm Karein Aur Delivery Detail Share Karein.`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
