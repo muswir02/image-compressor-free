@@ -3,195 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toolverse - Enterprise Web Utilities Hub</title>
-    <meta name="description" content="All-in-one privacy-first browser utility hub for images, PDFs, text, and social previews.">
+    <title>Toolverse — Free Web & Document Utilities</title>
+    <meta name="description" content="Fast, private, browser-based tools for image optimization, PDF manipulation, developer formatting, and SEO inspection.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brand: { 50: '#f0f9ff', 500: '#0284c7', 600: '#0369a1', 900: '#0c4a6e' }
+                        brand: { 500: '#0284c7', 600: '#0369a1' }
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.6); }
+        .ad-slot { background: repeating-linear-gradient(45deg, rgba(30, 41, 59, 0.3), rgba(30, 41, 59, 0.3) 10px, rgba(15, 23, 42, 0.3) 10px, rgba(15, 23, 42, 0.3) 20px); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
 
-    <!-- Top Navigation -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('image')">
-                <div class="h-10 w-10 bg-gradient-to-tr from-sky-500 to-blue-600 rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-sky-500/20">
-                    🛠️
+                <div class="h-9 w-9 bg-sky-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-sky-500/20">
+                    <i data-lucide="wrench" class="w-5 h-5"></i>
                 </div>
-                <span class="text-2xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
-                    Toolverse<span class="text-sky-500">.</span>
-                </span>
+                <span class="text-xl font-bold tracking-tight text-white">Toolverse</span>
             </div>
             
-            <nav class="hidden md:flex items-center gap-1 bg-slate-800/60 p-1.5 rounded-2xl border border-slate-700/50 text-sm font-medium">
-                <button onclick="switchTab('image')" id="btn-image" class="tab-btn px-5 py-2.5 rounded-xl transition-all text-white bg-sky-600 shadow-md">⚡ Image Studio</button>
-                <button onclick="switchTab('pdf')" id="btn-pdf" class="tab-btn px-5 py-2.5 rounded-xl transition-all text-slate-400 hover:text-white">📄 PDF Tools</button>
-                <button onclick="switchTab('text')" id="btn-text" class="tab-btn px-5 py-2.5 rounded-xl transition-all text-slate-400 hover:text-white">📝 Text Tools</button>
-                <button onclick="switchTab('social')" id="btn-social" class="tab-btn px-5 py-2.5 rounded-xl transition-all text-slate-400 hover:text-white">🖼️ Social Card</button>
+            <nav class="hidden md:flex items-center gap-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 text-xs font-medium">
+                <button onclick="switchTab('image')" id="btn-image" class="tab-btn px-4 py-2 rounded-lg transition-all text-white bg-sky-600 shadow-sm flex items-center gap-1.5">
+                    <i data-lucide="image" class="w-3.5 h-3.5"></i> Image Studio
+                </button>
+                <button onclick="switchTab('pdf')" id="btn-pdf" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF Tools
+                </button>
+                <button onclick="switchTab('dev')" id="btn-dev" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+                    <i data-lucide="code" class="w-3.5 h-3.5"></i> Developer Tools
+                </button>
+                <button onclick="switchTab('social')" id="btn-social" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i> SEO & Social
+                </button>
             </nav>
 
-            <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Client Engine
-                </span>
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>Browser Processing</span>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-1">
+    <main class="max-w-6xl mx-auto px-6 py-8 w-full flex-1 space-y-8">
         
-        <!-- Hero Header -->
-        <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white">
-                Ultra-Fast <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-500">Browser Utilities</span>
-            </h1>
-            <p class="text-slate-400 text-base">
-                100% Client-side processing. Zero server logs, infinite privacy, and instant results.
-            </p>
+        <!-- Header Banner Ad -->
+        <div class="w-full glass-card rounded-xl p-3 text-center border border-slate-800/80 ad-slot min-h-[90px] flex flex-col items-center justify-center">
+            <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Advertisement</span>
+            <div id="ad-banner-top" class="text-xs text-slate-600">
+                <!-- AdSense / Monetag Script Embed Point -->
+                [ Leaderboard Ad - 728x90 ]
+            </div>
         </div>
 
         <!-- TAB 1: IMAGE STUDIO -->
         <section id="tab-image" class="tab-content space-y-6">
-            <div class="glass-panel rounded-3xl p-8 border-dashed border-2 border-slate-700 hover:border-sky-500 transition-all text-center">
-                <div id="imgDropZone" class="space-y-4 py-8 cursor-pointer" onclick="document.getElementById('imgInput').click()">
-                    <div class="w-16 h-16 bg-sky-500/10 text-sky-400 rounded-2xl flex items-center justify-center mx-auto text-3xl border border-sky-500/20">
-                        🖼️
+            <div class="glass-card rounded-2xl p-8 border-dashed border-2 border-slate-700 hover:border-sky-500 transition-all text-center">
+                <div id="imgDropZone" class="space-y-4 py-6 cursor-pointer" onclick="document.getElementById('imgInput').click()">
+                    <div class="w-12 h-12 bg-sky-500/10 text-sky-400 rounded-xl flex items-center justify-center mx-auto border border-sky-500/20">
+                        <i data-lucide="upload-cloud" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">Select or Drag & Drop Image</h3>
-                        <p class="text-xs text-slate-400 mt-1">Supports JPG, PNG, WebP (Instant browser compression)</p>
+                        <h3 class="text-base font-semibold text-white">Upload Image</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Drag & drop or click to browse (JPG, PNG, WebP)</p>
                     </div>
                     <input type="file" id="imgInput" accept="image/*" class="hidden" onchange="processImage(event)">
                 </div>
 
-                <div id="imgDashboard" class="hidden text-left space-y-6 pt-4">
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                        <span id="imgName" class="font-bold text-white truncate max-w-xs">filename.png</span>
-                        <button onclick="resetImg()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300">Choose Another</button>
+                <div id="imgDashboard" class="hidden text-left space-y-6 pt-2">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <span id="imgName" class="font-medium text-white text-sm truncate max-w-xs flex items-center gap-2">
+                            <i data-lucide="file-image" class="w-4 h-4 text-sky-400"></i> <span id="imgNameText">file.png</span>
+                        </span>
+                        <button onclick="resetImg()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300">Change Image</button>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-slate-900/60 p-4 rounded-xl space-y-2 border border-slate-800">
-                            <div class="flex justify-between text-xs font-semibold">
-                                <span>Compression Quality</span>
-                                <span id="qualityLabel" class="text-sky-400">80%</span>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-xl space-y-2 border border-slate-800">
+                            <div class="flex justify-between text-xs font-medium">
+                                <span class="text-slate-400">Target Quality</span>
+                                <span id="qualityLabel" class="text-sky-400 font-semibold">80%</span>
                             </div>
                             <input type="range" id="qualitySlider" min="10" max="95" value="80" class="w-full accent-sky-500" oninput="updateImgQuality(this.value)">
                         </div>
-                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 flex justify-between items-center text-sm">
-                            <div><span class="block text-xs text-slate-500">Original</span><b id="imgOrigSize" class="text-slate-300">0 KB</b></div>
-                            <div class="text-sky-400">➔</div>
-                            <div><span class="block text-xs text-slate-500">Optimized</span><b id="imgNewSize" class="text-emerald-400">0 KB</b></div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                            <div><span class="block text-slate-500 mb-1">Original Size</span><b id="imgOrigSize" class="text-slate-200 text-sm">0 KB</b></div>
+                            <div class="text-slate-600"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                            <div><span class="block text-slate-500 mb-1">Compressed Size</span><b id="imgNewSize" class="text-emerald-400 text-sm">0 KB</b></div>
                         </div>
                     </div>
-                    <a id="imgDownloadBtn" href="#" download="optimized.jpg" class="block text-center bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-sky-500/20 transition">
-                        ⚡ Download Optimized Image
+                    <a id="imgDownloadBtn" href="#" download="optimized.jpg" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-semibold py-3 rounded-xl shadow-md transition text-xs flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Download Optimized Image
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 2: PDF TOOLS -->
+        <!-- TAB 2: PDF WORKSUITE -->
         <section id="tab-pdf" class="tab-content hidden space-y-6">
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass-panel p-6 rounded-2xl space-y-3">
-                    <div class="text-2xl">📑</div>
-                    <h3 class="font-bold text-white">Merge PDFs</h3>
-                    <p class="text-xs text-slate-400">Combine multiple PDF documents into a single organized file seamlessly.</p>
-                    <button class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-lg font-semibold text-slate-200">Select Files</button>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Merge PDF -->
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-sky-500/10 text-sky-400 rounded-lg flex items-center justify-center border border-sky-500/20">
+                            <i data-lucide="layers" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-white text-sm">Merge PDFs</h3>
+                            <p class="text-xs text-slate-400">Combine multiple PDF files into one.</p>
+                        </div>
+                    </div>
+                    <input type="file" id="pdfMergeInput" accept="application/pdf" multiple class="hidden" onchange="handleMergeSelect(event)">
+                    <button onclick="document.getElementById('pdfMergeInput').click()" class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-xl font-medium text-slate-200 border border-slate-700 flex items-center justify-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4 text-sky-400"></i> Select PDF Files
+                    </button>
+                    <div id="mergeFileList" class="text-xs text-slate-400 space-y-1"></div>
+                    <button id="btnProcessMerge" onclick="processPDFMerge()" class="hidden w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Combine & Download
+                    </button>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl space-y-3">
-                    <div class="text-2xl">✂️</div>
-                    <h3 class="font-bold text-white">Split PDF</h3>
-                    <p class="text-xs text-slate-400">Separate specific pages or split large PDF files into distinct parts.</p>
-                    <button class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-lg font-semibold text-slate-200">Select File</button>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl space-y-3">
-                    <div class="text-2xl">🔒</div>
-                    <h3 class="font-bold text-white">Unlock PDF</h3>
-                    <p class="text-xs text-slate-400">Remove passwords and restrictions from your personal PDF files.</p>
-                    <button class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-lg font-semibold text-slate-200">Select File</button>
+
+                <!-- Split PDF -->
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-sky-500/10 text-sky-400 rounded-lg flex items-center justify-center border border-sky-500/20">
+                            <i data-lucide="scissors" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-white text-sm">Extract PDF Pages</h3>
+                            <p class="text-xs text-slate-400">Extract specific pages into a new document.</p>
+                        </div>
+                    </div>
+                    <input type="file" id="pdfSplitInput" accept="application/pdf" class="hidden" onchange="handleSplitSelect(event)">
+                    <button onclick="document.getElementById('pdfSplitInput').click()" class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-xl font-medium text-slate-200 border border-slate-700 flex items-center justify-center gap-2">
+                        <i data-lucide="file" class="w-4 h-4 text-sky-400"></i> Select PDF File
+                    </button>
+                    <div id="splitFileInfo" class="text-xs text-slate-400 hidden space-y-2">
+                        <span id="splitFileName" class="text-sky-400 font-medium block truncate"></span>
+                        <input type="text" id="pageRangeInput" placeholder="Enter page numbers (e.g. 1, 3)" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg text-white text-xs focus:outline-none focus:border-sky-500">
+                    </div>
+                    <button id="btnProcessSplit" onclick="processPDFSplit()" class="hidden w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Extract & Download
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 3: TEXT TOOLS -->
-        <section id="tab-text" class="tab-content hidden space-y-6">
-            <div class="glass-panel p-6 rounded-3xl space-y-4">
-                <textarea id="textInput" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-slate-200 focus:outline-none focus:border-sky-500 text-sm" placeholder="Paste or type text here..." oninput="analyzeText()"></textarea>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800"><span class="block text-xs text-slate-500">Words</span><b id="cntWords" class="text-lg text-sky-400">0</b></div>
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800"><span class="block text-xs text-slate-500">Characters</span><b id="cntChars" class="text-lg text-sky-400">0</b></div>
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800"><span class="block text-xs text-slate-500">Paragraphs</span><b id="cntPara" class="text-lg text-sky-400">0</b></div>
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800"><span class="block text-xs text-slate-500">Read Time</span><b id="cntTime" class="text-lg text-sky-400">0s</b></div>
+        <!-- TAB 3: DEVELOPER TOOLS -->
+        <section id="tab-dev" class="tab-content hidden space-y-6">
+            <div class="glass-card p-6 rounded-2xl space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-white text-sm">JSON Formatter & Validator</h3>
+                    <button onclick="formatJSON()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition">Prettify JSON</button>
                 </div>
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <button onclick="transformText('upper')" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2 rounded-lg text-slate-300">UPPERCASE</button>
-                    <button onclick="transformText('lower')" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2 rounded-lg text-slate-300">lowercase</button>
-                    <button onclick="transformText('clean')" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2 rounded-lg text-slate-300">Remove Extra Spaces</button>
-                </div>
+                <textarea id="jsonInput" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-sky-500 text-xs font-mono" placeholder="Paste raw JSON here..."></textarea>
+                <div id="jsonStatus" class="text-xs hidden p-2 rounded-lg font-mono"></div>
             </div>
         </section>
 
-        <!-- TAB 4: SOCIAL CARD INSPECTOR -->
+        <!-- TAB 4: SEO & SOCIAL -->
         <section id="tab-social" class="tab-content hidden space-y-6">
-            <div class="glass-panel p-6 rounded-3xl space-y-4">
-                <input type="text" id="socialTitle" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-white" placeholder="Post Title / Headline" oninput="updateSocialPreview()">
-                <textarea id="socialDesc" rows="2" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-white" placeholder="Meta Description" oninput="updateSocialPreview()"></textarea>
+            <div class="glass-card p-6 rounded-2xl space-y-4">
+                <h3 class="font-semibold text-white text-sm">Google SERP Snippet Preview</h3>
+                <input type="text" id="socialTitle" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-sky-500" placeholder="Page Title (Target: ~60 chars)" oninput="updateSocialPreview()">
+                <textarea id="socialDesc" rows="2" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-sky-500" placeholder="Meta Description (Target: ~150 chars)" oninput="updateSocialPreview()"></textarea>
                 
-                <div class="border-t border-slate-800 pt-4">
-                    <span class="text-xs font-semibold text-slate-400 block mb-3">Google Search Live Preview</span>
+                <div class="pt-2">
                     <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
-                        <span class="text-xs text-emerald-400">https://yourdomain.com</span>
-                        <h4 id="prevTitle" class="text-sky-400 font-medium text-lg truncate">Your Title Preview</h4>
-                        <p id="prevDesc" class="text-xs text-slate-400 line-clamp-2">Your meta description will appear here inside Google search engine results.</p>
+                        <span class="text-[11px] text-emerald-400 block truncate">https://yourwebsite.com › page</span>
+                        <h4 id="prevTitle" class="text-sky-400 font-medium text-base truncate">Your Page Title Will Appear Here</h4>
+                        <p id="prevDesc" class="text-xs text-slate-400 line-clamp-2">Your meta description preview will be displayed here as it looks in real Google search engine results.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Bottom Inline Banner Ad -->
+        <div class="w-full glass-card rounded-xl p-3 text-center border border-slate-800/80 ad-slot min-h-[90px] flex flex-col items-center justify-center">
+            <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Sponsored Content</span>
+            <div id="ad-banner-bottom" class="text-xs text-slate-600">
+                <!-- AdSense / Monetag Script Embed Point -->
+                [ Banner Ad - 728x90 / Native Responsive ]
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        <p>© 2026 Toolverse. Client-side architecture engine.</p>
+    <footer class="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+        <p>© 2026 Toolverse. All tools run client-side in your browser.</p>
     </footer>
 
-    <!-- JavaScript Navigation & Logic -->
+    <!-- Engines Script -->
     <script>
+        lucide.createIcons();
+
         function switchTab(tabKey) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+                el.classList.remove('bg-sky-600', 'text-white', 'shadow-sm');
                 el.classList.add('text-slate-400');
             });
             document.getElementById('tab-' + tabKey).classList.remove('hidden');
             const activeBtn = document.getElementById('btn-' + tabKey);
-            activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+            activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-sm');
             activeBtn.classList.remove('text-slate-400');
         }
 
+        // Image Engine
         let loadedImg = null;
         function processImage(e) {
             const file = e.target.files[0];
             if(!file) return;
             loadedImg = file;
-            document.getElementById('imgName').innerText = file.name;
+            document.getElementById('imgNameText').innerText = file.name;
             document.getElementById('imgOrigSize').innerText = (file.size / 1024).toFixed(1) + ' KB';
             
             const reader = new FileReader();
@@ -237,26 +281,88 @@
             document.getElementById('imgDropZone').classList.remove('hidden');
         }
 
-        function analyzeText() {
-            const txt = document.getElementById('textInput').value;
-            const words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
-            document.getElementById('cntWords').innerText = words;
-            document.getElementById('cntChars').innerText = txt.length;
-            document.getElementById('cntPara').innerText = txt.trim() ? txt.split(/\n+/).length : 0;
-            document.getElementById('cntTime').innerText = Math.ceil(words / 200) + 's';
+        // PDF Engine
+        let mergeFilesList = [];
+        let splitFileObj = null;
+
+        function handleMergeSelect(e) {
+            mergeFilesList = Array.from(e.target.files);
+            const listDiv = document.getElementById('mergeFileList');
+            listDiv.innerHTML = mergeFilesList.map(f => `• ${f.name}`).join('<br>');
+            if(mergeFilesList.length >= 2) {
+                document.getElementById('btnProcessMerge').classList.remove('hidden');
+            } else {
+                alert("Please select at least 2 PDF files.");
+            }
         }
 
-        function transformText(type) {
-            const el = document.getElementById('textInput');
-            if(type === 'upper') el.value = el.value.toUpperCase();
-            if(type === 'lower') el.value = el.value.toLowerCase();
-            if(type === 'clean') el.value = el.value.replace(/\s+/g, ' ').trim();
-            analyzeText();
+        async function processPDFMerge() {
+            if(mergeFilesList.length < 2) return;
+            const mergedPdf = await PDFLib.PDFDocument.create();
+            for (let file of mergeFilesList) {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+            }
+            const pdfBytes = await mergedPdf.save();
+            downloadBlob(pdfBytes, "merged_document.pdf", "application/pdf");
         }
 
+        function handleSplitSelect(e) {
+            splitFileObj = e.target.files[0];
+            if(!splitFileObj) return;
+            document.getElementById('splitFileName').innerText = splitFileObj.name;
+            document.getElementById('splitFileInfo').classList.remove('hidden');
+            document.getElementById('btnProcessSplit').classList.remove('hidden');
+        }
+
+        async function processPDFSplit() {
+            const rangeStr = document.getElementById('pageRangeInput').value;
+            if(!splitFileObj || !rangeStr) { alert("Enter page numbers to extract."); return; }
+            
+            const arrayBuffer = await splitFileObj.arrayBuffer();
+            const srcPdf = await PDFLib.PDFDocument.load(arrayBuffer);
+            const newPdf = await PDFLib.PDFDocument.create();
+            
+            const pageIndices = rangeStr.split(',').map(n => parseInt(n.trim()) - 1).filter(n => !isNaN(n) && n >= 0 && n < srcPdf.getPageCount());
+            if(pageIndices.length === 0) { alert("Invalid page range."); return; }
+            
+            const copiedPages = await newPdf.copyPages(srcPdf, pageIndices);
+            copiedPages.forEach((page) => newPdf.addPage(page));
+            
+            const pdfBytes = await newPdf.save();
+            downloadBlob(pdfBytes, "extracted_pages.pdf", "application/pdf");
+        }
+
+        function downloadBlob(bytes, filename, contentType) {
+            const blob = new Blob([bytes], { type: contentType });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+
+        // JSON Developer Engine
+        function formatJSON() {
+            const input = document.getElementById('jsonInput').value;
+            const statusDiv = document.getElementById('jsonStatus');
+            try {
+                const parsed = JSON.parse(input);
+                document.getElementById('jsonInput').value = JSON.stringify(parsed, null, 2);
+                statusDiv.innerText = "✓ Valid JSON";
+                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            } catch (err) {
+                statusDiv.innerText = "✗ Invalid JSON: " + err.message;
+                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
+            }
+            statusDiv.classList.remove('hidden');
+        }
+
+        // Social Preview Engine
         function updateSocialPreview() {
-            document.getElementById('prevTitle').innerText = document.getElementById('socialTitle').value || 'Your Title Preview';
-            document.getElementById('prevDesc').innerText = document.getElementById('socialDesc').value || 'Your meta description will appear here inside Google search engine results.';
+            document.getElementById('prevTitle').innerText = document.getElementById('socialTitle').value || 'Your Page Title Will Appear Here';
+            document.getElementById('prevDesc').innerText = document.getElementById('socialDesc').value || 'Your meta description preview will be displayed here as it looks in real Google search engine results.';
         }
     </script>
 </body>
