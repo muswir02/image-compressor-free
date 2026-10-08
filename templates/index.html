@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sufi Spices — 100% Pure & Chakki Fresh Masale</title>
-    <meta name="description" content="Khalis Lal Mirch, Cutter Mirch, Haldi aur Garam Masale. Premium Quality, No Colors, Home Delivered.">
+    <title>Sufi Spices — Har Ghar Ki Shaan, Sufi Pakwan</title>
+    <meta name="description" content="100% Khalis Masale - Pissi Lal Mirch, Cutter Mirch, Haldi Powder aur Garam Masala. 24/7 Delivery All Over Karachi.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -24,19 +24,28 @@
                             amber: '#d97706'
                         }
                     },
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                    fontFamily: { 
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        urdu: ['Noto Nastaliq Urdu', 'serif']
+                    }
                 }
             }
         }
     </script>
     <style>
-        .hero-gradient { background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.15), transparent 50%), linear-gradient(180deg, #0f172a 0%, #020617 100%); }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .hero-gradient { background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.2), transparent 50%), linear-gradient(180deg, #0f172a 0%, #020617 100%); }
+        .glass-card { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .badge-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-rose-500 selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-rose-700 via-amber-600 to-rose-700 text-white text-xs py-2 px-4 text-center font-medium shadow-md flex items-center justify-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-white badge-pulse"></span>
+        <span>🚚 <b>24/7 Delivery All Over Karachi</b> — Direct Doorstep Premium Service!</span>
+    </div>
 
     <!-- Header Navigation -->
     <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
@@ -51,26 +60,33 @@
                 </div>
             </div>
 
-            <a href="#products" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-2.5 rounded-xl transition text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-rose-900/40">
-                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Order Now
+            <a href="https://wa.me/923703750165?text=Assalam-o-Alaikum!%20Main%20Sufi%20Spices%20se%20order%20karna%20chahta%20hoon." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl transition text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-950/40">
+                <i data-lucide="message-circle" class="w-4 h-4"></i> Order Now (03703750165)
             </a>
         </div>
     </header>
 
     <!-- Hero Banner -->
-    <section class="hero-gradient py-16 sm:py-24 border-b border-slate-800/80 relative overflow-hidden">
+    <section class="hero-gradient py-12 sm:py-20 border-b border-slate-800/80 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6 text-center space-y-6 relative z-10">
+            
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold uppercase tracking-wider">
-                <span class="w-2 h-2 rounded-full bg-rose-500 badge-pulse"></span> Pure Handpicked Spices
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500"></i> All Karachi Express Service
             </div>
             
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                Sehat Aur Zaiqe Ka Safar<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-400 to-amber-500">Khazana Sufi Spices Ke Sath</span>
-            </h1>
+            <!-- Urdu Slogan Heading -->
+            <div class="space-y-3">
+                <h2 class="font-urdu text-2xl sm:text-4xl text-amber-400 leading-relaxed font-bold">
+                    "ہر گھر کی شان — صوفی پکوان"
+                </h2>
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    Har Niwale Mein Apna Zaiqa Aur Aitmad<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-400 to-amber-500">Aapka Mayaar Hamara Pegham</span>
+                </h1>
+            </div>
             
-            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-                Bina Kisi Chemical, Rung Ya Milawat Ke — Pure Chakki Peesi Huwi Pissi Mirch, Cutter Mirch, Haldi Aur Premium Masale Direct Aapke Ghar Tak.
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Bina kisi chemical, artificial color ya milawat ke — 100% Khalis Chakki Peesi Huwi Red Chili, Cutter Mirch, Haldi aur Premium Garam Masale. 24 Hours Karachi-wide delivery!
             </p>
 
             <!-- Trust Badges -->
@@ -86,20 +102,20 @@
                 </div>
                 <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                        <i data-lucide="sun" class="w-5 h-5"></i>
+                        <i data-lucide="clock" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h4 class="text-xs font-bold text-white">Chakki Fresh</h4>
-                        <p class="text-[10px] text-slate-400">Natural Aroma</p>
+                        <h4 class="text-xs font-bold text-white">24/7 Delivery</h4>
+                        <p class="text-[10px] text-slate-400">All Karachi Service</p>
                     </div>
                 </div>
                 <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
-                        <i data-lucide="truck" class="w-5 h-5"></i>
+                        <i data-lucide="award" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h4 class="text-xs font-bold text-white">Fast Delivery</h4>
-                        <p class="text-[10px] text-slate-400">Home Doorstep</p>
+                        <h4 class="text-xs font-bold text-white">Premium Quality</h4>
+                        <p class="text-[10px] text-slate-400">Aapka Mayaar</p>
                     </div>
                 </div>
                 <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
@@ -107,19 +123,19 @@
                         <i data-lucide="thumbs-up" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h4 class="text-xs font-bold text-white">Money Back</h4>
-                        <p class="text-[10px] text-slate-400">Quality Guarantee</p>
+                        <h4 class="text-xs font-bold text-white">Guaranteed Pure</h4>
+                        <p class="text-[10px] text-slate-400">Pure Taste & Aroma</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Products Showcase -->
-    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 space-y-12">
+    <!-- Products Showcase Section -->
+    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 space-y-10">
         <div class="text-center space-y-2">
-            <h2 class="text-3xl font-extrabold text-white">Hamare Khazane (Our Products)</h2>
-            <p class="text-slate-400 text-sm">Apni zaroorat ke hisab se weight select karein aur direct WhatsApp par order karein.</p>
+            <h2 class="text-3xl font-extrabold text-white">Hamare Premium Masale</h2>
+            <p class="text-slate-400 text-sm">Apni zaroorat ka weight select karein aur direct WhatsApp par order karein.</p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -127,5 +143,16 @@
             <!-- Product 1: Pissi Red Chili -->
             <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-rose-500/50 transition">
                 <div class="space-y-3">
-                    <div class="h-44 bg-gradient-to-tr from-rose-950 to-slate-900 rounded-2xl flex items-center justify-center relative overflow-hidden border border-slate-800">
-                        <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Best
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700">
+                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80" alt="Pissi Red Chili" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">Best Seller</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Pissi Lal Mirch (Red Chili)</h3>
+                        <p class="text-xs text-slate-400 mt-1">Teekha zaiqa, kudrati rung bina kisi synthetic color ke.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Weight:</span>
+                        <select id="weight-mirch" onchange
