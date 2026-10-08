@@ -7,8 +7,8 @@
     <meta name="description" content="Fast, private, browser-based tools for image optimization, PDF manipulation, developer formatting, and SEO inspection.">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -132,7 +132,7 @@
                         </div>
                     </div>
 
-                    <div onclick="triggerPdfMergeSelect()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
+                    <div onclick="document.getElementById('pdfMergeInput').click()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
                         <i data-lucide="plus-circle" class="w-6 h-6 text-sky-400 mx-auto mb-1"></i>
                         <span class="text-xs font-medium text-slate-200 block">Click to Select PDFs</span>
                         <span class="text-[10px] text-slate-500">Select 2 or more PDF files</span>
@@ -158,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div onclick="triggerPdfSplitSelect()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
+                    <div onclick="document.getElementById('pdfSplitInput').click()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
                         <i data-lucide="file-plus" class="w-6 h-6 text-sky-400 mx-auto mb-1"></i>
                         <span class="text-xs font-medium text-slate-200 block">Click to Select PDF</span>
                         <span class="text-[10px] text-slate-500">Choose 1 PDF file</span>
@@ -168,7 +168,7 @@
                     <div id="splitFileInfo" class="text-xs text-slate-400 hidden space-y-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
                         <span id="splitFileName" class="text-sky-400 font-medium block truncate"></span>
                         <div>
-                            <label class="text-[11px] text-slate-400 block mb-1">Pages to Extract (e.g. 1, 3):</label>
+                            <label class="text-[11px] text-slate-400 block mb-1">Pages to Extract (e.g. 1, 2):</label>
                             <input type="text" id="pageRangeInput" placeholder="1, 2" class="w-full bg-slate-950 border border-slate-700 p-2 rounded-lg text-white text-xs focus:outline-none focus:border-sky-500">
                         </div>
                     </div>
@@ -203,326 +203,4 @@
                     <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
                         <span class="text-[11px] text-emerald-400 block truncate">https://yourwebsite.com › page</span>
                         <h4 id="prevTitle" class="text-sky-400 font-medium text-base truncate">Your Page Title Will Appear Here</h4>
-                        <p id="prevDesc" class="text-xs text-slate-400 line-clamp-2">Your meta description preview will be displayed here as it looks in real Google search engine results.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bottom Inline Banner Ad -->
-        <div class="w-full glass-card rounded-xl p-3 text-center border border-slate-800/80 ad-slot min-h-[90px] flex flex-col items-center justify-center">
-            <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Sponsored Content</span>
-            <div id="ad-banner-bottom" class="text-xs text-slate-600">
-                [ Banner Ad Slot ]
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
-        <p>© 2026 Toolverse. All tools run client-side in your browser.</p>
-    </footer>
-
-    <!-- JavaScript Navigation & Engines -->
-    <script>
-        lucide.createIcons();
-
-        function switchTab(tabKey) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-sky-600', 'text-white', 'shadow-sm');
-                el.classList.add('text-slate-400');
-            });
-            document.getElementById('tab-' + tabKey).classList.remove('hidden');
-            const activeBtn = document.getElementById('btn-' + tabKey);
-            activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-sm');
-            activeBtn.classList.remove('text-slate-400');
-        }
-
-        // Image Engine
-        let loadedImg = null;
-        function processImage(e) {
-            const file = e.target.files[0];
-            if(!file) return;
-            loadedImg = file;
-            document.getElementById('imgNameText').innerText = file.name;
-            document.getElementById('imgOrigSize').innerText = (file.size / 1024).toFixed(1) + ' KB';
-            
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                const img = new Image();
-                img.src = evt.target.result;
-                img.onload = function() {
-                    compressImg(img, 0.8);
-                    document.getElementById('imgDropZone').classList.add('hidden');
-                    document.getElementById('imgDashboard').classList.remove('hidden');
-                }
-            }
-            reader.readAsDataURL(file);
-        }
-
-        function updateImgQuality(val) {
-            document.getElementById('qualityLabel').innerText = val + '%';
-            if(!loadedImg) return;
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                const img = new Image();
-                img.src = evt.target.result;
-                img.onload = function() { compressImg(img, val / 100); }
-            }
-            reader.readAsDataURL(loadedImg);
-        }
-
-        function compressImg(img, quality) {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, img.width, img.height);
-            const dataUrl = canvas.toDataURL('image/jpeg', quality);
-            const approxBytes = Math.round((dataUrl.length - 22) * 3 / 4);
-            document.getElementById('imgNewSize').innerText = (approxBytes / 1024).toFixed(1) + ' KB';
-            document.getElementById('imgDownloadBtn').href = dataUrl;
-        }
-
-        function resetImg() {
-            loadedImg = null;
-            document.getElementById('imgDashboard').classList.add('hidden');
-            document.getElementById('imgDropZone').classList.remove('hidden');
-        }
-
-        // PDF Engine
-        let mergeFilesList = [];
-        let splitFileObj = null;
-
-        function triggerPdfMergeSelect() {
-            document.getElementById('pdfMergeInput').click();
-        }
-
-        function triggerPdfSplitSelect() {
-            document.getElementById('pdfSplitInput').click();
-        }
-
-        function handleMergeSelect(e) {
-            mergeFilesList = Array.from(e.target.files);
-            const listDiv = document.getElementById('mergeFileList');
-            if(mergeFilesList.length > 0) {
-                listDiv.classList.remove('hidden');
-                listDiv.innerHTML = mergeFilesList.map((f, i) => `<b>${i+1}.</b> ${f.name}`).join('<br>');
-            }
-            if(mergeFilesList.length >= 2) {
-                document.getElementById('btnProcessMerge').classList.remove('hidden');
-            } else {
-                alert("Please select at least 2 PDF files to merge.");
-            }
-        }
-
-        async function processPDFMerge() {
-            if(mergeFilesList.length < 2) return;
-            try {
-                const PDFLibDoc = window.PDFLib || PDFLib;
-                const mergedPdf = await PDFLibDoc.PDFDocument.create();
-                
-                for (let file of mergeFilesList) {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await PDFLibDoc.PDFDocument.load(arrayBuffer);
-                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    copiedPages.forEach((page) => mergedPdf.addPage(page));
-                }
-                const pdfBytes = await mergedPdf.save();
-                downloadBlob(pdfBytes, "merged_document.pdf", "application/pdf");
-            } catch(err) {
-                alert("Error processing PDF merge: " + err.message);
-            }
-        }
-
-        function handleSplitSelect(e) {
-            splitFileObj = e.target.files[0];
-            if(!splitFileObj) return;
-            document.getElementById('splitFileName').innerText = splitFileObj.name;
-            document.getElementById('splitFileInfo').classList.remove('hidden');
-            document.getElementById('btnProcessSplit').classList.remove('hidden');
-        }
-
-        async function processPDFSplit() {
-            const rangeStr = document.getElementById('pageRangeInput').value;
-            if(!splitFileObj || !rangeStr) { alert("Enter page numbers to extract (e.g. 1, 2)"); return; }
-            
-            try {
-                const PDFLibDoc = window.PDFLib || PDFLib;
-                const arrayBuffer = await splitFileObj.arrayBuffer();
-                const srcPdf = await PDFLibDoc.PDFDocument.load(arrayBuffer);
-                const newPdf = await PDFLibDoc.PDFDocument.create();
-                
-                const pageIndices = rangeStr.split(',')
-                    .map(n => parseInt(n.trim()) - 1)
-                    .filter(n => !isNaN(n) && n >= 0 && n < srcPdf.getPageCount());
-
-                if(pageIndices.length === 0) { 
-                    alert("Invalid page numbers entered. File has " + srcPdf.getPageCount() + " page(s)."); 
-                    return; 
-                }
-                
-                const copiedPages = await newPdf.copyPages(srcPdf, pageIndices);
-                copiedPages.forEach((page) => newPdf.addPage(page));
-                
-                const pdfBytes = await newPdf.save();
-                downloadBlob(pdfBytes, "extracted_pages.pdf", "application/pdf");
-            } catch(err) {
-                alert("Error splitting PDF: " + err.message);
-            }
-        }
-
-        function downloadBlob(bytes, filename, contentType) {
-            const blob = new Blob([bytes], { type: contentType });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-        }
-
-        // Developer Engine
-        function formatJSON() {
-            const input = document.getElementById('jsonInput').value;
-            const statusDiv = document.getElementById('jsonStatus');
-            try {
-                const parsed = JSON.parse(input);
-                document.getElementById('jsonInput').value = JSON.stringify(parsed, null, 2);
-                statusDiv.innerText = "✓ Valid JSON";
-                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-            } catch (err) {
-                statusDiv.innerText = "✗ Invalid JSON: " + err.message;
-                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
-            }
-            statusDiv.classList.remove('hidden');
-        }
-
-        // Social Preview Engine
-        function updateSocialPreview() {
-            document.getElementById('prevTitle').innerText = document.getElementById('socialTitle').value || 'Your Page Title Will Appear Here';
-            document.getElementById('prevDesc').innerText = document.getElementById('socialDesc').value || 'Your meta description preview will be displayed
-                    compressImg(img, 0.8);
-                    document.getElementById('imgDropZone').classList.add('hidden');
-                    document.getElementById('imgDashboard').classList.remove('hidden');
-                }
-            }
-            reader.readAsDataURL(file);
-        }
-
-        function updateImgQuality(val) {
-            document.getElementById('qualityLabel').innerText = val + '%';
-            if(!loadedImg) return;
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                const img = new Image();
-                img.src = evt.target.result;
-                img.onload = function() { compressImg(img, val / 100); }
-            }
-            reader.readAsDataURL(loadedImg);
-        }
-
-        function compressImg(img, quality) {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, img.width, img.height);
-            const dataUrl = canvas.toDataURL('image/jpeg', quality);
-            const approxBytes = Math.round((dataUrl.length - 22) * 3 / 4);
-            document.getElementById('imgNewSize').innerText = (approxBytes / 1024).toFixed(1) + ' KB';
-            document.getElementById('imgDownloadBtn').href = dataUrl;
-        }
-
-        function resetImg() {
-            loadedImg = null;
-            document.getElementById('imgDashboard').classList.add('hidden');
-            document.getElementById('imgDropZone').classList.remove('hidden');
-        }
-
-        // PDF Engine
-        let mergeFilesList = [];
-        let splitFileObj = null;
-
-        function handleMergeSelect(e) {
-            mergeFilesList = Array.from(e.target.files);
-            const listDiv = document.getElementById('mergeFileList');
-            listDiv.innerHTML = mergeFilesList.map(f => `• ${f.name}`).join('<br>');
-            if(mergeFilesList.length >= 2) {
-                document.getElementById('btnProcessMerge').classList.remove('hidden');
-            } else {
-                alert("Please select at least 2 PDF files.");
-            }
-        }
-
-        async function processPDFMerge() {
-            if(mergeFilesList.length < 2) return;
-            const mergedPdf = await PDFLib.PDFDocument.create();
-            for (let file of mergeFilesList) {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
-                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                copiedPages.forEach((page) => mergedPdf.addPage(page));
-            }
-            const pdfBytes = await mergedPdf.save();
-            downloadBlob(pdfBytes, "merged_document.pdf", "application/pdf");
-        }
-
-        function handleSplitSelect(e) {
-            splitFileObj = e.target.files[0];
-            if(!splitFileObj) return;
-            document.getElementById('splitFileName').innerText = splitFileObj.name;
-            document.getElementById('splitFileInfo').classList.remove('hidden');
-            document.getElementById('btnProcessSplit').classList.remove('hidden');
-        }
-
-        async function processPDFSplit() {
-            const rangeStr = document.getElementById('pageRangeInput').value;
-            if(!splitFileObj || !rangeStr) { alert("Enter page numbers to extract."); return; }
-            
-            const arrayBuffer = await splitFileObj.arrayBuffer();
-            const srcPdf = await PDFLib.PDFDocument.load(arrayBuffer);
-            const newPdf = await PDFLib.PDFDocument.create();
-            
-            const pageIndices = rangeStr.split(',').map(n => parseInt(n.trim()) - 1).filter(n => !isNaN(n) && n >= 0 && n < srcPdf.getPageCount());
-            if(pageIndices.length === 0) { alert("Invalid page range."); return; }
-            
-            const copiedPages = await newPdf.copyPages(srcPdf, pageIndices);
-            copiedPages.forEach((page) => newPdf.addPage(page));
-            
-            const pdfBytes = await newPdf.save();
-            downloadBlob(pdfBytes, "extracted_pages.pdf", "application/pdf");
-        }
-
-        function downloadBlob(bytes, filename, contentType) {
-            const blob = new Blob([bytes], { type: contentType });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-        }
-
-        // JSON Developer Engine
-        function formatJSON() {
-            const input = document.getElementById('jsonInput').value;
-            const statusDiv = document.getElementById('jsonStatus');
-            try {
-                const parsed = JSON.parse(input);
-                document.getElementById('jsonInput').value = JSON.stringify(parsed, null, 2);
-                statusDiv.innerText = "✓ Valid JSON";
-                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-            } catch (err) {
-                statusDiv.innerText = "✗ Invalid JSON: " + err.message;
-                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
-            }
-            statusDiv.classList.remove('hidden');
-        }
-
-        // Social Preview Engine
-        function updateSocialPreview() {
-            document.getElementById('prevTitle').innerText = document.getElementById('socialTitle').value || 'Your Page Title Will Appear Here';
-            document.getElementById('prevDesc').innerText = document.getElementById('socialDesc').value || 'Your meta description preview will be displayed here as it looks in real Google search engine results.';
-        }
-    </script>
-</body>
-</html>
+                        <p id="prevDesc" class="text-xs
