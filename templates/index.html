@@ -8,7 +8,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -71,8 +71,7 @@
         <div class="w-full glass-card rounded-xl p-3 text-center border border-slate-800/80 ad-slot min-h-[90px] flex flex-col items-center justify-center">
             <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Advertisement</span>
             <div id="ad-banner-top" class="text-xs text-slate-600">
-                <!-- AdSense / Monetag Script Embed Point -->
-                [ Leaderboard Ad - 728x90 ]
+                [ Banner Ad Slot ]
             </div>
         </div>
 
@@ -121,7 +120,7 @@
         <!-- TAB 2: PDF WORKSUITE -->
         <section id="tab-pdf" class="tab-content hidden space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
-                <!-- Merge PDF -->
+                <!-- Merge PDF Card -->
                 <div class="glass-card p-6 rounded-2xl space-y-4">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-sky-500/10 text-sky-400 rounded-lg flex items-center justify-center border border-sky-500/20">
@@ -132,17 +131,22 @@
                             <p class="text-xs text-slate-400">Combine multiple PDF files into one.</p>
                         </div>
                     </div>
+
+                    <div onclick="triggerPdfMergeSelect()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
+                        <i data-lucide="plus-circle" class="w-6 h-6 text-sky-400 mx-auto mb-1"></i>
+                        <span class="text-xs font-medium text-slate-200 block">Click to Select PDFs</span>
+                        <span class="text-[10px] text-slate-500">Select 2 or more PDF files</span>
+                    </div>
                     <input type="file" id="pdfMergeInput" accept="application/pdf" multiple class="hidden" onchange="handleMergeSelect(event)">
-                    <button onclick="document.getElementById('pdfMergeInput').click()" class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-xl font-medium text-slate-200 border border-slate-700 flex items-center justify-center gap-2">
-                        <i data-lucide="plus" class="w-4 h-4 text-sky-400"></i> Select PDF Files
-                    </button>
-                    <div id="mergeFileList" class="text-xs text-slate-400 space-y-1"></div>
+
+                    <div id="mergeFileList" class="text-xs text-slate-300 space-y-1 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 hidden"></div>
+                    
                     <button id="btnProcessMerge" onclick="processPDFMerge()" class="hidden w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Combine & Download
+                        <i data-lucide="download" class="w-4 h-4"></i> Merge & Download PDF
                     </button>
                 </div>
 
-                <!-- Split PDF -->
+                <!-- Split PDF Card -->
                 <div class="glass-card p-6 rounded-2xl space-y-4">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-sky-500/10 text-sky-400 rounded-lg flex items-center justify-center border border-sky-500/20">
@@ -150,19 +154,27 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-white text-sm">Extract PDF Pages</h3>
-                            <p class="text-xs text-slate-400">Extract specific pages into a new document.</p>
+                            <p class="text-xs text-slate-400">Extract specific pages into a new file.</p>
                         </div>
                     </div>
-                    <input type="file" id="pdfSplitInput" accept="application/pdf" class="hidden" onchange="handleSplitSelect(event)">
-                    <button onclick="document.getElementById('pdfSplitInput').click()" class="w-full bg-slate-800 hover:bg-slate-700 text-xs py-2.5 rounded-xl font-medium text-slate-200 border border-slate-700 flex items-center justify-center gap-2">
-                        <i data-lucide="file" class="w-4 h-4 text-sky-400"></i> Select PDF File
-                    </button>
-                    <div id="splitFileInfo" class="text-xs text-slate-400 hidden space-y-2">
-                        <span id="splitFileName" class="text-sky-400 font-medium block truncate"></span>
-                        <input type="text" id="pageRangeInput" placeholder="Enter page numbers (e.g. 1, 3)" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg text-white text-xs focus:outline-none focus:border-sky-500">
+
+                    <div onclick="triggerPdfSplitSelect()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
+                        <i data-lucide="file-plus" class="w-6 h-6 text-sky-400 mx-auto mb-1"></i>
+                        <span class="text-xs font-medium text-slate-200 block">Click to Select PDF</span>
+                        <span class="text-[10px] text-slate-500">Choose 1 PDF file</span>
                     </div>
+                    <input type="file" id="pdfSplitInput" accept="application/pdf" class="hidden" onchange="handleSplitSelect(event)">
+
+                    <div id="splitFileInfo" class="text-xs text-slate-400 hidden space-y-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                        <span id="splitFileName" class="text-sky-400 font-medium block truncate"></span>
+                        <div>
+                            <label class="text-[11px] text-slate-400 block mb-1">Pages to Extract (e.g. 1, 3):</label>
+                            <input type="text" id="pageRangeInput" placeholder="1, 2" class="w-full bg-slate-950 border border-slate-700 p-2 rounded-lg text-white text-xs focus:outline-none focus:border-sky-500">
+                        </div>
+                    </div>
+
                     <button id="btnProcessSplit" onclick="processPDFSplit()" class="hidden w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Extract & Download
+                        <i data-lucide="download" class="w-4 h-4"></i> Extract & Download PDF
                     </button>
                 </div>
             </div>
@@ -175,7 +187,7 @@
                     <h3 class="font-semibold text-white text-sm">JSON Formatter & Validator</h3>
                     <button onclick="formatJSON()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition">Prettify JSON</button>
                 </div>
-                <textarea id="jsonInput" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-sky-500 text-xs font-mono" placeholder="Paste raw JSON here..."></textarea>
+                <textarea id="jsonInput" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-sky-500 text-xs font-mono" placeholder='{"name": "Toolverse", "type": "Utility"}'></textarea>
                 <div id="jsonStatus" class="text-xs hidden p-2 rounded-lg font-mono"></div>
             </div>
         </section>
@@ -201,8 +213,7 @@
         <div class="w-full glass-card rounded-xl p-3 text-center border border-slate-800/80 ad-slot min-h-[90px] flex flex-col items-center justify-center">
             <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Sponsored Content</span>
             <div id="ad-banner-bottom" class="text-xs text-slate-600">
-                <!-- AdSense / Monetag Script Embed Point -->
-                [ Banner Ad - 728x90 / Native Responsive ]
+                [ Banner Ad Slot ]
             </div>
         </div>
 
@@ -213,7 +224,7 @@
         <p>© 2026 Toolverse. All tools run client-side in your browser.</p>
     </footer>
 
-    <!-- Engines Script -->
+    <!-- JavaScript Navigation & Engines -->
     <script>
         lucide.createIcons();
 
@@ -243,6 +254,154 @@
                 const img = new Image();
                 img.src = evt.target.result;
                 img.onload = function() {
+                    compressImg(img, 0.8);
+                    document.getElementById('imgDropZone').classList.add('hidden');
+                    document.getElementById('imgDashboard').classList.remove('hidden');
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function updateImgQuality(val) {
+            document.getElementById('qualityLabel').innerText = val + '%';
+            if(!loadedImg) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = new Image();
+                img.src = evt.target.result;
+                img.onload = function() { compressImg(img, val / 100); }
+            }
+            reader.readAsDataURL(loadedImg);
+        }
+
+        function compressImg(img, quality) {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            const approxBytes = Math.round((dataUrl.length - 22) * 3 / 4);
+            document.getElementById('imgNewSize').innerText = (approxBytes / 1024).toFixed(1) + ' KB';
+            document.getElementById('imgDownloadBtn').href = dataUrl;
+        }
+
+        function resetImg() {
+            loadedImg = null;
+            document.getElementById('imgDashboard').classList.add('hidden');
+            document.getElementById('imgDropZone').classList.remove('hidden');
+        }
+
+        // PDF Engine
+        let mergeFilesList = [];
+        let splitFileObj = null;
+
+        function triggerPdfMergeSelect() {
+            document.getElementById('pdfMergeInput').click();
+        }
+
+        function triggerPdfSplitSelect() {
+            document.getElementById('pdfSplitInput').click();
+        }
+
+        function handleMergeSelect(e) {
+            mergeFilesList = Array.from(e.target.files);
+            const listDiv = document.getElementById('mergeFileList');
+            if(mergeFilesList.length > 0) {
+                listDiv.classList.remove('hidden');
+                listDiv.innerHTML = mergeFilesList.map((f, i) => `<b>${i+1}.</b> ${f.name}`).join('<br>');
+            }
+            if(mergeFilesList.length >= 2) {
+                document.getElementById('btnProcessMerge').classList.remove('hidden');
+            } else {
+                alert("Please select at least 2 PDF files to merge.");
+            }
+        }
+
+        async function processPDFMerge() {
+            if(mergeFilesList.length < 2) return;
+            try {
+                const PDFLibDoc = window.PDFLib || PDFLib;
+                const mergedPdf = await PDFLibDoc.PDFDocument.create();
+                
+                for (let file of mergeFilesList) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await PDFLibDoc.PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+                const pdfBytes = await mergedPdf.save();
+                downloadBlob(pdfBytes, "merged_document.pdf", "application/pdf");
+            } catch(err) {
+                alert("Error processing PDF merge: " + err.message);
+            }
+        }
+
+        function handleSplitSelect(e) {
+            splitFileObj = e.target.files[0];
+            if(!splitFileObj) return;
+            document.getElementById('splitFileName').innerText = splitFileObj.name;
+            document.getElementById('splitFileInfo').classList.remove('hidden');
+            document.getElementById('btnProcessSplit').classList.remove('hidden');
+        }
+
+        async function processPDFSplit() {
+            const rangeStr = document.getElementById('pageRangeInput').value;
+            if(!splitFileObj || !rangeStr) { alert("Enter page numbers to extract (e.g. 1, 2)"); return; }
+            
+            try {
+                const PDFLibDoc = window.PDFLib || PDFLib;
+                const arrayBuffer = await splitFileObj.arrayBuffer();
+                const srcPdf = await PDFLibDoc.PDFDocument.load(arrayBuffer);
+                const newPdf = await PDFLibDoc.PDFDocument.create();
+                
+                const pageIndices = rangeStr.split(',')
+                    .map(n => parseInt(n.trim()) - 1)
+                    .filter(n => !isNaN(n) && n >= 0 && n < srcPdf.getPageCount());
+
+                if(pageIndices.length === 0) { 
+                    alert("Invalid page numbers entered. File has " + srcPdf.getPageCount() + " page(s)."); 
+                    return; 
+                }
+                
+                const copiedPages = await newPdf.copyPages(srcPdf, pageIndices);
+                copiedPages.forEach((page) => newPdf.addPage(page));
+                
+                const pdfBytes = await newPdf.save();
+                downloadBlob(pdfBytes, "extracted_pages.pdf", "application/pdf");
+            } catch(err) {
+                alert("Error splitting PDF: " + err.message);
+            }
+        }
+
+        function downloadBlob(bytes, filename, contentType) {
+            const blob = new Blob([bytes], { type: contentType });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+
+        // Developer Engine
+        function formatJSON() {
+            const input = document.getElementById('jsonInput').value;
+            const statusDiv = document.getElementById('jsonStatus');
+            try {
+                const parsed = JSON.parse(input);
+                document.getElementById('jsonInput').value = JSON.stringify(parsed, null, 2);
+                statusDiv.innerText = "✓ Valid JSON";
+                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            } catch (err) {
+                statusDiv.innerText = "✗ Invalid JSON: " + err.message;
+                statusDiv.className = "text-xs p-2 rounded-lg font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20";
+            }
+            statusDiv.classList.remove('hidden');
+        }
+
+        // Social Preview Engine
+        function updateSocialPreview() {
+            document.getElementById('prevTitle').innerText = document.getElementById('socialTitle').value || 'Your Page Title Will Appear Here';
+            document.getElementById('prevDesc').innerText = document.getElementById('socialDesc').value || 'Your meta description preview will be displayed
                     compressImg(img, 0.8);
                     document.getElementById('imgDropZone').classList.add('hidden');
                     document.getElementById('imgDashboard').classList.remove('hidden');
