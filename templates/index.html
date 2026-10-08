@@ -1,206 +1,131 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="ur" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toolverse — Free Web & Document Utilities</title>
-    <meta name="description" content="Fast, private, browser-based tools for image optimization, PDF manipulation, developer formatting, and SEO inspection.">
+    <title>Sufi Spices — 100% Pure & Chakki Fresh Masale</title>
+    <meta name="description" content="Khalis Lal Mirch, Cutter Mirch, Haldi aur Garam Masale. Premium Quality, No Colors, Home Delivered.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brand: { 500: '#0284c7', 600: '#0369a1' }
-                    }
+                        spice: {
+                            50: '#fffbe1',
+                            500: '#e11d48',
+                            600: '#be123c',
+                            700: '#9f1239',
+                            gold: '#f59e0b',
+                            amber: '#d97706'
+                        }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
                 }
             }
         }
     </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.6); }
-        .ad-slot { background: repeating-linear-gradient(45deg, rgba(30, 41, 59, 0.3), rgba(30, 41, 59, 0.3) 10px, rgba(15, 23, 42, 0.3) 10px, rgba(15, 23, 42, 0.3) 20px); }
+        .hero-gradient { background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.15), transparent 50%), linear-gradient(180deg, #0f172a 0%, #020617 100%); }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .badge-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-rose-500 selection:text-white">
 
-    <!-- Header -->
+    <!-- Header Navigation -->
     <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('image')">
-                <div class="h-9 w-9 bg-sky-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-sky-500/20">
-                    <i data-lucide="wrench" class="w-5 h-5"></i>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-gradient-to-tr from-rose-600 to-amber-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-rose-950/50">
+                    <i data-lucide="flame" class="w-6 h-6 fill-current"></i>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-white">Toolverse</span>
+                <div>
+                    <span class="text-2xl font-black tracking-tight text-white block leading-none">SUFI <span class="text-rose-500">SPICES</span></span>
+                    <span class="text-[10px] text-amber-400 font-semibold uppercase tracking-widest">100% Pure & Organic</span>
+                </div>
             </div>
-            
-            <nav class="hidden md:flex items-center gap-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 text-xs font-medium">
-                <button onclick="switchTab('image')" id="btn-image" class="tab-btn px-4 py-2 rounded-lg transition-all text-white bg-sky-600 shadow-sm flex items-center gap-1.5">
-                    <i data-lucide="image" class="w-3.5 h-3.5"></i> Image Studio
-                </button>
-                <button onclick="switchTab('pdf')" id="btn-pdf" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
-                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF Tools
-                </button>
-                <button onclick="switchTab('dev')" id="btn-dev" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
-                    <i data-lucide="code" class="w-3.5 h-3.5"></i> Developer Tools
-                </button>
-                <button onclick="switchTab('social')" id="btn-social" class="tab-btn px-4 py-2 rounded-lg transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
-                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i> SEO & Social
-                </button>
-            </nav>
 
-            <div class="flex items-center gap-2 text-xs text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span>Browser Processing</span>
-            </div>
+            <a href="#products" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-2.5 rounded-xl transition text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-rose-900/40">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Order Now
+            </a>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="max-w-6xl mx-auto px-6 py-8 w-full flex-1 space-y-8">
-        
-        <!-- Header Banner Ad -->
-        <div class="w-full glass-card rounded-xl p-3 text-center border border-slate-800/80 ad-slot min-h-[90px] flex flex-col items-center justify-center">
-            <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Advertisement</span>
-            <div id="ad-banner-top" class="text-xs text-slate-600">
-                [ Banner Ad Slot ]
+    <!-- Hero Banner -->
+    <section class="hero-gradient py-16 sm:py-24 border-b border-slate-800/80 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 text-center space-y-6 relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-rose-500 badge-pulse"></span> Pure Handpicked Spices
             </div>
-        </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                Sehat Aur Zaiqe Ka Safar<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-400 to-amber-500">Khazana Sufi Spices Ke Sath</span>
+            </h1>
+            
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                Bina Kisi Chemical, Rung Ya Milawat Ke — Pure Chakki Peesi Huwi Pissi Mirch, Cutter Mirch, Haldi Aur Premium Masale Direct Aapke Ghar Tak.
+            </p>
 
-        <!-- TAB 1: IMAGE STUDIO -->
-        <section id="tab-image" class="tab-content space-y-6">
-            <div class="glass-card rounded-2xl p-8 border-dashed border-2 border-slate-700 hover:border-sky-500 transition-all text-center">
-                <div id="imgDropZone" class="space-y-4 py-6 cursor-pointer" onclick="document.getElementById('imgInput').click()">
-                    <div class="w-12 h-12 bg-sky-500/10 text-sky-400 rounded-xl flex items-center justify-center mx-auto border border-sky-500/20">
-                        <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 max-w-4xl mx-auto text-left">
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-semibold text-white">Upload Image</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Drag & drop or click to browse (JPG, PNG, WebP)</p>
+                        <h4 class="text-xs font-bold text-white">100% Khalis</h4>
+                        <p class="text-[10px] text-slate-400">Zero Chemicals</p>
                     </div>
-                    <input type="file" id="imgInput" accept="image/*" class="hidden" onchange="processImage(event)">
                 </div>
-
-                <div id="imgDashboard" class="hidden text-left space-y-6 pt-2">
-                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                        <span id="imgName" class="font-medium text-white text-sm truncate max-w-xs flex items-center gap-2">
-                            <i data-lucide="file-image" class="w-4 h-4 text-sky-400"></i> <span id="imgNameText">file.png</span>
-                        </span>
-                        <button onclick="resetImg()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300">Change Image</button>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="sun" class="w-5 h-5"></i>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-slate-900 p-4 rounded-xl space-y-2 border border-slate-800">
-                            <div class="flex justify-between text-xs font-medium">
-                                <span class="text-slate-400">Target Quality</span>
-                                <span id="qualityLabel" class="text-sky-400 font-semibold">80%</span>
-                            </div>
-                            <input type="range" id="qualitySlider" min="10" max="95" value="80" class="w-full accent-sky-500" oninput="updateImgQuality(this.value)">
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-                            <div><span class="block text-slate-500 mb-1">Original Size</span><b id="imgOrigSize" class="text-slate-200 text-sm">0 KB</b></div>
-                            <div class="text-slate-600"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
-                            <div><span class="block text-slate-500 mb-1">Compressed Size</span><b id="imgNewSize" class="text-emerald-400 text-sm">0 KB</b></div>
-                        </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Chakki Fresh</h4>
+                        <p class="text-[10px] text-slate-400">Natural Aroma</p>
                     </div>
-                    <a id="imgDownloadBtn" href="#" download="optimized.jpg" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-semibold py-3 rounded-xl shadow-md transition text-xs flex items-center justify-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Download Optimized Image
-                    </a>
                 </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: PDF WORKSUITE -->
-        <section id="tab-pdf" class="tab-content hidden space-y-6">
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Merge PDF Card -->
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-sky-500/10 text-sky-400 rounded-lg flex items-center justify-center border border-sky-500/20">
-                            <i data-lucide="layers" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-white text-sm">Merge PDFs</h3>
-                            <p class="text-xs text-slate-400">Combine multiple PDF files into one.</p>
-                        </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="truck" class="w-5 h-5"></i>
                     </div>
-
-                    <div onclick="document.getElementById('pdfMergeInput').click()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
-                        <i data-lucide="plus-circle" class="w-6 h-6 text-sky-400 mx-auto mb-1"></i>
-                        <span class="text-xs font-medium text-slate-200 block">Click to Select PDFs</span>
-                        <span class="text-[10px] text-slate-500">Select 2 or more PDF files</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Fast Delivery</h4>
+                        <p class="text-[10px] text-slate-400">Home Doorstep</p>
                     </div>
-                    <input type="file" id="pdfMergeInput" accept="application/pdf" multiple class="hidden" onchange="handleMergeSelect(event)">
-
-                    <div id="mergeFileList" class="text-xs text-slate-300 space-y-1 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 hidden"></div>
-                    
-                    <button id="btnProcessMerge" onclick="processPDFMerge()" class="hidden w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Merge & Download PDF
-                    </button>
                 </div>
-
-                <!-- Split PDF Card -->
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-sky-500/10 text-sky-400 rounded-lg flex items-center justify-center border border-sky-500/20">
-                            <i data-lucide="scissors" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-white text-sm">Extract PDF Pages</h3>
-                            <p class="text-xs text-slate-400">Extract specific pages into a new file.</p>
-                        </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="thumbs-up" class="w-5 h-5"></i>
                     </div>
-
-                    <div onclick="document.getElementById('pdfSplitInput').click()" class="border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-xl p-4 text-center cursor-pointer transition">
-                        <i data-lucide="file-plus" class="w-6 h-6 text-sky-400 mx-auto mb-1"></i>
-                        <span class="text-xs font-medium text-slate-200 block">Click to Select PDF</span>
-                        <span class="text-[10px] text-slate-500">Choose 1 PDF file</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Money Back</h4>
+                        <p class="text-[10px] text-slate-400">Quality Guarantee</p>
                     </div>
-                    <input type="file" id="pdfSplitInput" accept="application/pdf" class="hidden" onchange="handleSplitSelect(event)">
-
-                    <div id="splitFileInfo" class="text-xs text-slate-400 hidden space-y-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                        <span id="splitFileName" class="text-sky-400 font-medium block truncate"></span>
-                        <div>
-                            <label class="text-[11px] text-slate-400 block mb-1">Pages to Extract (e.g. 1, 2):</label>
-                            <input type="text" id="pageRangeInput" placeholder="1, 2" class="w-full bg-slate-950 border border-slate-700 p-2 rounded-lg text-white text-xs focus:outline-none focus:border-sky-500">
-                        </div>
-                    </div>
-
-                    <button id="btnProcessSplit" onclick="processPDFSplit()" class="hidden w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Extract & Download PDF
-                    </button>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- TAB 3: DEVELOPER TOOLS -->
-        <section id="tab-dev" class="tab-content hidden space-y-6">
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="font-semibold text-white text-sm">JSON Formatter & Validator</h3>
-                    <button onclick="formatJSON()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition">Prettify JSON</button>
-                </div>
-                <textarea id="jsonInput" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-sky-500 text-xs font-mono" placeholder='{"name": "Toolverse", "type": "Utility"}'></textarea>
-                <div id="jsonStatus" class="text-xs hidden p-2 rounded-lg font-mono"></div>
-            </div>
-        </section>
+    <!-- Products Showcase -->
+    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 space-y-12">
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-extrabold text-white">Hamare Khazane (Our Products)</h2>
+            <p class="text-slate-400 text-sm">Apni zaroorat ke hisab se weight select karein aur direct WhatsApp par order karein.</p>
+        </div>
 
-        <!-- TAB 4: SEO & SOCIAL -->
-        <section id="tab-social" class="tab-content hidden space-y-6">
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <h3 class="font-semibold text-white text-sm">Google SERP Snippet Preview</h3>
-                <input type="text" id="socialTitle" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-sky-500" placeholder="Page Title (Target: ~60 chars)" oninput="updateSocialPreview()">
-                <textarea id="socialDesc" rows="2" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-sky-500" placeholder="Meta Description (Target: ~150 chars)" oninput="updateSocialPreview()"></textarea>
-                
-                <div class="pt-2">
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
-                        <span class="text-[11px] text-emerald-400 block truncate">https://yourwebsite.com › page</span>
-                        <h4 id="prevTitle" class="text-sky-400 font-medium text-base truncate">Your Page Title Will Appear Here</h4>
-                        <p id="prevDesc" class="text-xs
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Product 1: Pissi Red Chili -->
+            <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-rose-500/50 transition">
+                <div class="space-y-3">
+                    <div class="h-44 bg-gradient-to-tr from-rose-950 to-slate-900 rounded-2xl flex items-center justify-center relative overflow-hidden border border-slate-800">
+                        <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Best
