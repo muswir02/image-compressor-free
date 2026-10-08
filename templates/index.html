@@ -44,7 +44,7 @@
     <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-rose-700 via-amber-600 to-rose-700 text-white text-xs py-2 px-4 text-center font-medium shadow-md flex items-center justify-center gap-2">
         <span class="w-2 h-2 rounded-full bg-white badge-pulse"></span>
-        <span>🚚 <b>24/7 Delivery All Over Karachi</b> — Direct Doorstep Premium Service!</span>
+        <span>🚚 <b>24/7 Premium Express Delivery All Over Karachi</b> — Premium Quality Guaranteed!</span>
     </div>
 
     <!-- Header Navigation -->
@@ -143,8 +143,8 @@
             <!-- Product 1: Pissi Red Chili -->
             <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-rose-500/50 transition">
                 <div class="space-y-3">
-                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700">
-                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80" alt="Pissi Red Chili" class="w-full h-full object-cover">
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700 bg-slate-900 flex items-center justify-center">
+                        <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQCtZ-0sK0fSS5yAnia54Nz_KpNZRSDmkIi_Ch1mgfChCa1lck7Hgqpa_tMSIycznzJ42AeAFLX1taCz7c" alt="Pissi Red Chili" class="w-full h-full object-cover">
                         <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">Best Seller</span>
                     </div>
                     <div>
@@ -155,4 +155,46 @@
                 <div class="space-y-3 pt-2">
                     <div class="flex items-center justify-between text-xs">
                         <span class="text-slate-400">Weight:</span>
-                        <select id="weight-mirch" onchange
+                        <select id="weight-mirch" onchange="calcPrice('mirch', 300)" class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white text-xs focus:outline-none focus:border-rose-500">
+                            <option value="250g">250g</option>
+                            <option value="500g">500g</option>
+                            <option value="1kg" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-400 text-xs">Price:</span>
+                        <span id="price-mirch" class="text-xl font-bold text-amber-400">Rs. 1,200</span>
+                    </div>
+                    <button onclick="orderWhatsApp('Pissi Lal Mirch', 'mirch')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Order on WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2: Cutter Chili -->
+            <div class="glass-card rounded-3xl p-5 space-y-4 flex flex-col justify-between hover:border-amber-500/50 transition">
+                <div class="space-y-3">
+                    <div class="h-48 rounded-2xl overflow-hidden relative border border-slate-700 bg-slate-900 flex items-center justify-center">
+                        <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcRHQqptMHBiEXjeGSy1DnyozKOqfqSP_4Itl1pQvP0c3l_mgRRovTM1v46OTIPgKD760J360q_u5O5IQfE" alt="Cutter Chili" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-amber-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow-md">Crushed Flakes</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Cutter Mirch (Chili Flakes)</h3>
+                        <p class="text-xs text-slate-400 mt-1">Salan, karahi aur pizza ke liye sabse behtareen crushed flakes.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Weight:</span>
+                        <select id="weight-cutter" onchange="calcPrice('cutter', 320)" class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white text-xs focus:outline-none focus:border-rose-500">
+                            <option value="250g">250g</option>
+                            <option value="500g">500g</option>
+                            <option value="1kg" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-400 text-xs">Price:</span>
+                        <span id="price-cutter" class="text-xl font-bold text-amber-400">Rs. 1,280</span>
+                    </div>
+                    <button onclick="orderWhatsApp('Cutter Mirch', 'cutter')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40">
+                        <i data
