@@ -3,23 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Image Compressor - Compress JPG & PNG Online</title>
+    <title>Free Image Compressor - Compress JPG, PNG & WebP Online</title>
+    <meta name="description" content="Compress your images online for free without losing quality. Fast, secure, and privacy-focused image optimizer.">
+    
+    <!-- Google Fonts & Tailwind CSS for Modern UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
-        .container { max-width: 500px; margin: auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        input[type="file"] { margin: 20px 0; }
-        button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #218838; }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h2>Free Online Image Compressor</h2>
-        <p>Select an image to compress without losing quality.</p>
-        <form action="/compress" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required><br>
-            <button type="submit">Compress Image</button>
-        </form>
-    </div>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 py-4 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-xl">⚡</div>
+                <span class="font-bold text-xl text-slate-900 tracking-tight">Compressify</span>
+            </div>
+            <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">100% Free & Unlimited</span>
+        </div>
+    </header>
+
+    <!-- Hero & Compressor Tool Section -->
+    <main class="max-w-4xl mx-auto px-4 py-12 w-full">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                Compress Images Instantly <br class="hidden sm:inline"><span class="text-blue-600">Without Losing Quality</span>
+            </h1>
+            <p class="text-slate-600 text-base md:text-lg max-w-2xl mx-auto">
+                Optimize JPG, PNG, and WebP images in seconds. Reduce file size up to 80% for faster website loading and easy sharing.
+            </p>
+        </div>
+
+        <!-- Upload Card -->
+        <div class="bg-white border-2 border-dashed border-blue-200 rounded-2xl p-8 md:p-12 text-center shadow-lg hover:border-blue-500 transition-all">
+            
+            <form action="/compress" method="post" enctype="multipart/form-data" id="uploadForm" class="space-y-6">
+                
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 text-2xl">
+                        📁
+                    </div>
+                    <label for="fileInput" class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5">
+                        Choose Image File
+                    </label>
+                    <input type="file" id="fileInput" name="file" accept="image/*" class="hidden" required onchange="showFileName()">
+                    <p id="fileName" class="mt-3 text-sm text-slate-500 font-medium">PNG, JPG, JPEG, WEBP up to 10MB</p>
+                </div>
+
+                <div id="actionArea" class="hidden">
+                    <button type="submit" onclick="startLoading()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all">
+                        ⚡ Compress Now
+                    </button>
+                </div>
+
+                <div id="loader" class="hidden text-center py-4">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
+                    <p class="text-sm font-semibold text-slate-600 mt-2">Compressing your image, please wait...</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-2xl mb-2">⚡</div>
+                <h3 class="font-bold text-slate-900 mb-1">Lightning Fast</h3>
+                <p class="text-sm text-slate-600">Advanced compression engine reduces image sizes in just seconds.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-2xl mb-2">🔒</div>
+                <h3 class="font-bold text-slate-900 mb-1">100% Secure</h3>
+                <p class="text-sm text-slate-600">Your images are processed securely and never stored permanently on servers.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-2xl mb-2">✨</div>
+                <h3 class="font-bold text-slate-900 mb-1">High Quality</h3>
+                <p class="text-sm text-slate-600">Smart lossy algorithms reduce size while keeping visual clarity high.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500">
+        <p>© 2026 Free Image Compressor. Built for speed and performance.</p>
+    </footer>
+
+    <script>
+        function showFileName() {
+            const input = document.getElementById('fileInput');
+            const fileNameContainer = document.getElementById('fileName');
+            const actionArea = document.getElementById('actionArea');
+            
+            if (input.files.length > 0) {
+                fileNameContainer.innerText = "Selected: " + input.files[0].name;
+                fileNameContainer.classList.add("text-blue-600", "font-semibold");
+                actionArea.classList.remove("hidden");
+            }
+        }
+
+        function startLoading() {
+            document.getElementById('actionArea').classList.add('hidden');
+            document.getElementById('loader').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
